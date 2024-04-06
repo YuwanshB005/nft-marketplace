@@ -52,7 +52,7 @@ const Header = () => {
   }, []);
 
   const toggleMenu = () => menuRef.current.classList.toggle("active__menu");
-
+ 
   const connectWallet = async () => {
     console.log("Button clicked")
     if(window.ethereum){

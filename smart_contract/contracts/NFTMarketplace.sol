@@ -1,17 +1,16 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.9;
 
-import "@openzeppelin/contracts/utils/Counters.sol";
+// import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
-import "hardhat/console.sol";
+// import "hardhat/console.sol";
 
 contract NFTMarketplace is ERC721URIStorage {
-    using Counters for Counters.Counter;
 
-    Counters.Counter private _tokenIds;
-    Counters.Counter private _itemsSold;
+    uint256 private _tokenIds;
+    uint256 private _itemsSold;
     uint256 listingPrice = 0.0025 ether;
 
     address payable owner;
@@ -36,7 +35,8 @@ contract NFTMarketplace is ERC721URIStorage {
     );
 
     modifier onlyOwner {
-        require(msg.sender == owner)
+        require(msg.sender == owner);
+        _;
     }  
     
     constructor() ERC721("NFT Token", "MYNFT") {
@@ -96,7 +96,7 @@ contract NFTMarketplace is ERC721URIStorage {
     function resellToken(uint256 tokenId , uint256 price) public payable  {
         require(idMarketItem[tokenId].owner == msg.sender , "Only item owner can perform this operation");
 
-        require(msg.value == listingPrice)
+        require(msg.value == listingPrice);
 
         idMarketItem[tokenId].sold = false;
         idMarketItem[tokenId].price = price;
@@ -111,7 +111,7 @@ contract NFTMarketplace is ERC721URIStorage {
     }
 
     function createMarketSale(uint256 tokenId) public payable {
-       uint256 price = idMarketItem[tokenId].price
+       uint256 price = idMarketItem[tokenId].price;
 
        require(
         msg.value == price,
@@ -168,12 +168,6 @@ contract NFTMarketplace is ERC721URIStorage {
         return items;
     }
 
-    function fetchItemsListed() public view returns (MarketItem [] memory) {
-
-        uint256 totalCount = _tokenIds.current();
-        uint256 itemCount =  0;
-        uint256 currentIndex = 0;
-
-        for(uint256 i =0; i < totalCount; i ++)
-    }
+    
+    
 }
